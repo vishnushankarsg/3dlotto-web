@@ -1,17 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom'
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { DAppProvider, BSC } from '@usedapp/core';
+import ThemeContextWrapper from './utils/theme/themeContextWrapper';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+
+const config  = {
+  readOnlyChainId: BSC.chainId,
+  readOnlyUrls: {
+    [BSC.chainId]: BSC-RPC-URL
+  },
+  refresh: 20,
+};
+
+ReactDOM.render(
+  <ThemeContextWrapper>
+    <React.StrictMode>
+      <DAppProvider config={config}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </DAppProvider>
+    </React.StrictMode>
+  </ThemeContextWrapper>,
+  document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
